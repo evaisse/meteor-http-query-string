@@ -5,6 +5,7 @@
  * HttpQueryString.parse("a=2&b[]=2&b[foo]=c&b[]=kjldjksl")
  * HttpQueryString.stringify({"a":2,"b":[2,"kjldjksl"]})
  */
+HttpQueryString = {};
 
 /**
  * Stringify a javascript object to his query string representation
@@ -22,7 +23,13 @@ HttpQueryString.stringify = function (obj) {
             v = obj[p];
         if (typeof v == "object") {
             str.push(HttpQueryString.stringify(v, k));
-        } else if (v === null || v === undefined || )
+        } else if (v === null || v === undefined || v === false) {
+            str.push(encodeURIComponent(k));
+        } else if (v === true) {
+            str.push(encodeURIComponent(k) + "=true" + encodeURIComponent(v));
+        } else {
+            str.push(encodeURIComponent(k) + "=" + encodeURIComponent(v));
+        }
     });
 
     return str.join("&");
