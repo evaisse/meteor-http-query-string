@@ -16,21 +16,31 @@ HttpQueryString = {};
  */
 HttpQueryString.stringify = function (obj) {
     var str = [],
-        prefix = arguments[1];
+        prefix = arguments[1]; // hidden args for prefixing depth
 
-    Object.keys(obj).forEach(function (p) {
-        var k = prefix ? prefix + "[" + p + "]" : p,
-            v = obj[p];
-        if (typeof v == "object") {
+    // cleanup non serializable objects
+    obj = JSON.stringify(obj);
+    if (obj !== undefined) {
+        obj = JSON.parse(obj);
+    }
+
+
+
+    if (obj === null || obj === undefined || obj === false) {
+        console.log(prefix);
+        return prefix ? encodeURIComponent(prefix) : "";
+    } else if (obj === true) {
+        return encodeURIComponent(prefix) + "=1";
+    } else if (typeof obj !== 'object') {
+        return encodeURIComponent(prefix) + "=" + encodeURIComponent(obj);
+    } else {
+        Object.keys(obj).forEach(function (p) {
+            console.log(p);
+            var k = prefix ? prefix + "[" + p + "]" : p,
+                v = obj[p];
             str.push(HttpQueryString.stringify(v, k));
-        } else if (v === null || v === undefined || v === false) {
-            str.push(encodeURIComponent(k));
-        } else if (v === true) {
-            str.push(encodeURIComponent(k) + "=true" + encodeURIComponent(v));
-        } else {
-            str.push(encodeURIComponent(k) + "=" + encodeURIComponent(v));
-        }
-    });
+        });
+    }
 
     return str.join("&");
 };
