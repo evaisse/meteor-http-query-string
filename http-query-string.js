@@ -27,7 +27,6 @@ HttpQueryString.stringify = function (obj) {
 
 
     if (obj === null || obj === undefined || obj === false) {
-        console.log(prefix);
         return prefix ? encodeURIComponent(prefix) : "";
     } else if (obj === true) {
         return encodeURIComponent(prefix) + "=1";
@@ -35,7 +34,6 @@ HttpQueryString.stringify = function (obj) {
         return encodeURIComponent(prefix) + "=" + encodeURIComponent(obj);
     } else {
         Object.keys(obj).forEach(function (p) {
-            console.log(p);
             var k = prefix ? prefix + "[" + p + "]" : p,
                 v = obj[p];
             str.push(HttpQueryString.stringify(v, k));
