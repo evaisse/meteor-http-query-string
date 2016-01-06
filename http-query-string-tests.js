@@ -1,13 +1,23 @@
 
-Tinytest.add('Test encoding', function (test) {
+/*
+    Test encoding
+ */
+Tinytest.add('encoding base scalar types', function (test) {
 
     test.equal(HttpQueryString.stringify({a:2}), "a=2");
 
 });
 
 
-Tinytest.add('Test parsing', function (test) {
+
+Tinytest.add('parse base scalar types', function (test) {
 
     test.equal(HttpQueryString.parse('a=2').a, "2");
+
+
+});
+
+
+Tinytest.add('parse complex types', function (test) {
 
 });
