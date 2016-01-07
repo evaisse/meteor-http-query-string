@@ -6,6 +6,8 @@ HttpQueryString
 [![testing](https://travis-ci.org/evaisse/meteor-http-query-string.svg?branch=master)](https://travis-ci.org/evaisse/meteor-http-query-string)
 
 
+    meteor add evaisse:http-query-string
+
 Isomorphic query string parser/builder
 ---
 
