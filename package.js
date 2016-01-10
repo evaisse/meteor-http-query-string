@@ -11,7 +11,7 @@ Package.describe({
 });
 
 Package.onUse(function(api) {
-    api.versionsFrom('1.0.4.1');
+    api.versionsFrom('1.2.1');
     api.use('ecmascript');
     api.export('HttpQueryString');
     api.addFiles('http-query-string.js');
